@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time collaborative whiteboard for professors and students">
+    <meta name="theme-color" content="#2563eb">
+    <title>TeachBoard - Collaborative Whiteboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiByeD0iMjAiIGZpbGw9IiMyNTYzZWIiLz4KPHN2ZyB4PSIyNCIgeT0iMjQiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0zIDEyaDEwLjVMOSAxOG0wIDAtMyAzIG0zLTMgMy0zaI0IDJsLTQgNC02LTEuNS0xLjUgMS41IDYgNiIvPgo8L3N2Zz4KPC9zdmc+">
+</head>
+<body>
+    <div id="app">
+        <!-- Role Selection Modal -->
+        <div class="modal hidden" id="roleModal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Welcome to TeachBoard</h2>
+                    <p>Choose your role to get started</p>
+                </div>
+                <div class="modal-body">
+                    <div class="role-selection">
+                        <button class="btn btn--primary btn--lg role-btn" id="professorBtn">
+                            <div class="role-icon">👨‍🏫</div>
+                            <div class="role-info">
+                                <div class="role-title">Professor</div>
+                                <div class="role-desc">Create rooms and teach with full drawing tools</div>
+                            </div>
+                        </button>
+                        <button class="btn btn--outline btn--lg role-btn" id="studentBtn">
+                            <div class="role-icon">👨‍🎓</div>
+                            <div class="role-info">
+                                <div class="role-title">Student</div>
+                                <div class="role-desc">Join a room and watch the lesson</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Setup Modal -->
+        <div class="modal hidden" id="roomModal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="roomModalTitle">Join Room</h2>
+                    <p id="roomModalDesc">Enter the room key to continue</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="roomKeyInput">Room Key</label>
+                        <input type="text" class="form-control" id="roomKeyInput" placeholder="Enter room key (e.g., MATH101)" maxlength="20">
+                        <div class="error-message hidden" id="roomError">Invalid room key. Please try again.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userNameInput">Your Name</label>
+                        <input type="text" class="form-control" id="userNameInput" placeholder="Enter your name" maxlength="30">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn--outline" id="backToRoleBtn">Back</button>
+                        <button class="btn btn--primary" id="joinRoomBtn">Join Room</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Application -->
+        <div class="app-main hidden" id="appMain">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 class="app-title">TeachBoard</h1>
+                    <div class="role-badge" id="roleBadge">
+                        <span class="role-icon" id="roleIcon">👨‍🏫</span>
+                        <span class="role-text" id="roleText">Professor</span>
+                    </div>
+                    <div class="connection-status">
+                        <span class="connection-indicator" id="connectionIndicator"></span>
+                        <span class="connection-text" id="connectionText">Connecting...</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="room-info">
+                        <span class="room-label">Room:</span>
+                        <span class="room-key" id="roomKey">-</span>
+                        <button class="btn btn--sm btn--outline" id="shareRoomBtn" title="Share room key">📋</button>
+                    </div>
+                    <div class="user-count">
+                        <span class="user-icon">👥</span>
+                        <span id="userCount">1</span>
+                    </div>
+                    <button class="btn btn--secondary btn--sm" id="switchRoleBtn">Switch Role</button>
+                </div>
+            </header>
+
+            <!-- Toolbar (Professor only) -->
+            <div class="toolbar hidden" id="toolbar">
+                <div class="tool-group">
+                    <label class="tool-label">Color:</label>
+                    <div class="color-palette" id="colorPalette">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+                <div class="tool-group">
+                    <label class="tool-label">Width:</label>
+                    <div class="width-options" id="widthOptions">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+                <div class="tool-group">
+                    <button class="btn btn--outline btn--sm" id="clearCanvasBtn">Clear Canvas</button>
+                    <button class="btn btn--outline btn--sm" id="testDrawingBtn">Test Drawing</button>
+                </div>
+            </div>
+
+            <!-- Student Mode Indicator -->
+            <div class="student-indicator hidden" id="studentIndicator">
+                <div class="indicator-content">
+                    <span class="indicator-icon">👁️</span>
+                    <span class="indicator-text">View Only Mode - You can watch but cannot draw</span>
+                </div>
+            </div>
+
+            <!-- Canvas Container -->
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="whiteboard"></canvas>
+                <div class="loading-overlay hidden" id="loadingOverlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Connecting to room...</div>
+                </div>
+            </div>
+
+            <!-- Student List (Professor only) -->
+            <div class="student-list hidden" id="studentList">
+                <div class="list-header">
+                    <h3>Connected Students</h3>
+                    <button class="btn btn--sm btn--outline" id="toggleStudentList">△</button>
+                </div>
+                <div class="list-content" id="studentListContent">
+                    <div class="student-item">
+                        <span class="student-name">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PWA Install Banner -->
+        <div class="pwa-banner hidden" id="pwaInstallBanner">
+            <div class="banner-content">
+                <span class="banner-icon">📱</span>
+                <span class="banner-text">Install TeachBoard for a better experience</span>
+                <button class="btn btn--primary btn--sm" id="installBtn">Install</button>
+                <button class="btn btn--outline btn--sm" id="dismissInstallBtn">×</button>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div class="notification-container" id="notificationContainer"></div>
+    </div>
+
+    <!-- Socket.io for real-time communication -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
