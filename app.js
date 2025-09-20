@@ -251,7 +251,7 @@ class TeachingWhiteboard {
                 this.canvas.dispatchEvent(mouseEvent);
             });
 
-            console.log('✅ Drawing events bound immediately to canvas (Version 01 style)');
+            console.log('âœ… Drawing events bound immediately to canvas (Version 01 style)');
         }
 
         // Toolbar events - ONLY for professors
@@ -512,7 +512,7 @@ class TeachingWhiteboard {
 
         // SIMPLIFIED room-joined handler - NO COMPLEX CANVAS REBINDING
         this.socket.on('room-joined', (data) => {
-            console.log('🎉 ROOM JOINED SUCCESSFULLY:', data);
+            console.log('ðŸŽ‰ ROOM JOINED SUCCESSFULLY:', data);
             
             this.clearConnectionTimeouts();
             
@@ -526,13 +526,13 @@ class TeachingWhiteboard {
                 
                 // For professors, simple setup - NO CANVAS REBINDING
                 if (this.state.userRole === 'professor') {
-                    console.log('🎯 SETTING UP PROFESSOR MODE (SIMPLIFIED)...');
+                    console.log('ðŸŽ¯ SETTING UP PROFESSOR MODE (SIMPLIFIED)...');
                     this.updateUI();
                     this.setupToolbar();
                     
                     // Simple validation - canvas should already work since events are bound
                     setTimeout(() => {
-                        console.log('✅ Professor mode ready - drawing events already bound!');
+                        console.log('âœ… Professor mode ready - drawing events already bound!');
                         this.showNotification('Professor mode ready! Try drawing now.', 'success');
                         
                         // Optional: Auto-test drawing
@@ -839,7 +839,7 @@ class TeachingWhiteboard {
             
             // Professor UI
             if (this.elements.roleIcon) {
-                this.elements.roleIcon.textContent = '👨‍🏫';
+                this.elements.roleIcon.textContent = 'ðŸ‘¨â€ðŸ«';
             }
             if (this.elements.roleText) {
                 this.elements.roleText.textContent = 'Professor';
@@ -869,7 +869,7 @@ class TeachingWhiteboard {
             
             // Student UI
             if (this.elements.roleIcon) {
-                this.elements.roleIcon.textContent = '👨‍🎓';
+                this.elements.roleIcon.textContent = 'ðŸ‘¨â€ðŸŽ“';
             }
             if (this.elements.roleText) {
                 this.elements.roleText.textContent = 'Student';
@@ -1027,7 +1027,7 @@ class TeachingWhiteboard {
 
     // Start drawing - SIMPLIFIED LIKE VERSION 01
     startDrawing(e) {
-        console.log('🎨 START DRAWING - SIMPLIFIED VERSION');
+        console.log('ðŸŽ¨ START DRAWING - SIMPLIFIED VERSION');
         console.log('Role:', this.state.userRole);
         console.log('Canvas:', !!this.canvas);
         console.log('Context:', !!this.ctx);
@@ -1059,7 +1059,7 @@ class TeachingWhiteboard {
         this.ctx.lineCap = 'round';
         this.ctx.lineJoin = 'round';
 
-        console.log('✅ Started drawing at:', pos, 'with color:', this.state.currentColor, 'width:', this.state.currentWidth);
+        console.log('âœ… Started drawing at:', pos, 'with color:', this.state.currentColor, 'width:', this.state.currentWidth);
     }
 
     // Continue drawing - LIKE VERSION 01
@@ -1116,7 +1116,7 @@ class TeachingWhiteboard {
     // Send draw command to server
     sendDrawCommand(command) {
         if (this.socket && this.state.isConnected) {
-            console.log('📤 SENDING DRAW COMMAND:', command);
+            console.log('ðŸ“¤ SENDING DRAW COMMAND:', command);
             this.socket.emit('draw-command', command);
             this.state.commandsSent++;
         } else {
@@ -1315,7 +1315,7 @@ class TeachingWhiteboard {
 
         this.elements.studentList.classList.toggle('collapsed');
         const isCollapsed = this.elements.studentList.classList.contains('collapsed');
-        this.elements.toggleStudentList.textContent = isCollapsed ? '▲' : '▼';
+        this.elements.toggleStudentList.textContent = isCollapsed ? 'â–²' : 'â–¼';
     }
 
     // Update connection status
@@ -1360,7 +1360,7 @@ class TeachingWhiteboard {
 
     // Test drawing method - SIMPLIFIED
     testDrawing() {
-        console.log('🧪 TESTING DRAWING (VERSION 01 STYLE)');
+        console.log('ðŸ§ª TESTING DRAWING (VERSION 01 STYLE)');
         console.log('Role:', this.state.userRole);
         console.log('Canvas element:', !!this.canvas);
         console.log('Canvas context:', !!this.ctx);
@@ -1381,22 +1381,22 @@ class TeachingWhiteboard {
             const testPath = [[60, 60], [140, 60], [140, 140], [60, 140]];
             this.drawPath(testPath, '#00ff00', 2);
 
-            this.showNotification('✅ Drawing test successful!', 'success');
-            console.log('✅ Test drawing completed successfully');
+            this.showNotification('âœ… Drawing test successful!', 'success');
+            console.log('âœ… Test drawing completed successfully');
         } else {
-            console.log('❌ Test drawing failed - requirements not met');
+            console.log('âŒ Test drawing failed - requirements not met');
             this.showNotification('Drawing test failed. Check role and canvas status.', 'error');
         }
     }
 
     // SIMPLIFIED emergency fix - no complex canvas replacement
     fixProfessorMode() {
-        console.log('🚨 SIMPLIFIED PROFESSOR MODE FIX (NO CANVAS REPLACEMENT)');
+        console.log('ðŸš¨ SIMPLIFIED PROFESSOR MODE FIX (NO CANVAS REPLACEMENT)');
 
         // 1. Fix Role State Management
         this.state.userRole = 'professor';
         localStorage.setItem('teachboard_role', 'professor');
-        console.log('✓ Role forced to professor');
+        console.log('âœ“ Role forced to professor');
 
         // 2. Update UI
         this.forceHideStudentIndicator();
@@ -1407,12 +1407,12 @@ class TeachingWhiteboard {
         setTimeout(() => {
             const isValid = this.canvas && this.ctx && this.state.userRole === 'professor';
             if (isValid) {
-                console.log('🎉 PROFESSOR MODE FIXED - DRAWING READY!');
-                this.showNotification('🎉 Professor mode fixed! Drawing ready!', 'success');
+                console.log('ðŸŽ‰ PROFESSOR MODE FIXED - DRAWING READY!');
+                this.showNotification('ðŸŽ‰ Professor mode fixed! Drawing ready!', 'success');
                 this.testDrawing();
             } else {
-                console.log('⚠️ Some issues remain - try refreshing page');
-                this.showNotification('⚠️ Partial fix. Try refreshing page.', 'warning');
+                console.log('âš ï¸ Some issues remain - try refreshing page');
+                this.showNotification('âš ï¸ Partial fix. Try refreshing page.', 'warning');
             }
         }, 200);
     }
@@ -1430,7 +1430,7 @@ class TeachingWhiteboard {
             eventsAlreadyBound: 'Yes - bound in constructor like Version 01'
         };
 
-        console.log('🐛 DEBUG STATE (VERSION 01 STYLE)');
+        console.log('ðŸ› DEBUG STATE (VERSION 01 STYLE)');
         console.table(debugInfo);
 
         return debugInfo;
@@ -1441,7 +1441,7 @@ class TeachingWhiteboard {
 document.addEventListener('DOMContentLoaded', () => {
     try {
         window.teachBoard = new TeachingWhiteboard();
-        console.log('🎉 TeachingWhiteboard ready! (VERSION 01 STABILITY)');
+        console.log('ðŸŽ‰ TeachingWhiteboard ready! (VERSION 01 STABILITY)');
 
         // Simplified debug functions
         window.teachBoardDebug = {
@@ -1451,7 +1451,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Quick diagnostic
             quickDiagnostic: () => {
-                console.log('🔍 QUICK DIAGNOSTIC');
+                console.log('ðŸ” QUICK DIAGNOSTIC');
                 const app = window.teachBoard;
                 const canvas = document.getElementById('whiteboard');
 
@@ -1465,17 +1465,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.table(status);
 
                 if (status.canvasElement && status.canvasContext) {
-                    console.log('✅ Canvas system ready - drawing should work for professors!');
+                    console.log('âœ… Canvas system ready - drawing should work for professors!');
                 } else {
-                    console.log('❌ Issues found - try window.teachBoardDebug.fixProfessorMode()');
+                    console.log('âŒ Issues found - try window.teachBoardDebug.fixProfessorMode()');
                 }
 
                 return status;
             }
         };
 
-        console.log('🛠️ Debug functions available: state(), testDrawing(), fixProfessorMode(), quickDiagnostic()');
-        console.log('💡 Drawing events bound immediately like Version 01 - should work right away!');
+        console.log('ðŸ› ï¸ Debug functions available: state(), testDrawing(), fixProfessorMode(), quickDiagnostic()');
+        console.log('ðŸ’¡ Drawing events bound immediately like Version 01 - should work right away!');
 
     } catch (error) {
         console.error('Failed to initialize TeachingWhiteboard:', error);
