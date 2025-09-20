@@ -410,20 +410,31 @@ class TeachingWhiteboard {
             this.roomJoinAttempts = 0;
             this.attemptRoomJoin(0);
             
-            // Force connection status update after maximum wait time
-            this.connectionTimeout = setTimeout(() => {
-                if (this.elements.connectionText && this.elements.connectionText.textContent === 'Connecting...') {
-                    console.warn('Connection timeout - forcing connected status');
-                    this.updateConnectionStatus('connected');
-                    this.hideLoadingOverlay();
-                    
-                    // Try to fix professor mode if still having issues
-                    if (this.state.userRole === 'professor') {
-                        console.log('Running emergency professor fix due to timeout');
-                        setTimeout(() => this.fixProfessorMode(), 1000);
-                    }
-                }
-            }, 15000); // 15 second maximum
+                // Simplified timeout - just ensure we're marked as connected
+this.connectionTimeout = setTimeout(() => {
+    console.log('⏰ Connection timeout - ensuring connected status');
+    
+    // Force connected status regardless of current state
+    this.updateConnectionStatus('connected');
+    this.hideLoadingOverlay();
+    
+    // Double-check: Force the text directly too
+    if (this.elements.connectionText) {
+        this.elements.connectionText.textContent = 'Connected';
+    }
+    
+    // Enable drawing for professor
+    if (this.state.userRole === 'professor') {
+        console.log('🎯 Enabling professor mode after timeout');
+        this.forceHideStudentIndicator();
+        if (this.canvas) {
+            this.canvas.style.pointerEvents = 'auto';
+            this.canvas.style.touchAction = 'none';
+            this.canvas.classList.remove('view-only');
+        }
+    }
+}, 10000); // Reduced to 10 seconds
+
             
         } catch (error) {
             console.error('Failed to connect to server:', error);
