@@ -630,12 +630,13 @@ this.connectionTimeout = setTimeout(() => {
         }
     }
 
-    // Hide loading overlay
     hideLoadingOverlay() {
-        if (this.elements.loadingOverlay) {
-            this.elements.loadingOverlay.classList.add('hidden');
-        }
+    if (this.elements.loadingOverlay) {
+        this.elements.loadingOverlay.classList.add('hidden');
+        this.elements.loadingOverlay.style.display = 'none'; // ✅ ADD THIS LINE
     }
+}
+
 
     // Check for stored role and auto-login
     checkStoredRole() {
