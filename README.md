@@ -95,7 +95,7 @@ node server.js
 
 - **GitHub Repo:** [Vector-Whiteboard](https://github.com/adityaa05/Vector-Whiteboard)
 - **Maintainer:** Aditya Patil ([patiladityaa09@gmail.com](mailto:patiladityaa09@gmail.com))
-- **Live Demo/Deployment:** (Add public link if hosted)
+- **Live Demo/Deployment:** https://vector-whiteboard.onrender.com
 
 ***
 
