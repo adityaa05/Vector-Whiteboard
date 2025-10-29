@@ -50,9 +50,13 @@ node server.js
 
 ## Screenshots
 
-![Main Whiteboard View](https://github.com/user-attachments/assets/56d3f707-7ea2-4c7 View:**
-![Professor View](https://github.com/user-attachments/assets/16eb25b9-33f5-4fef View:**
-![Student View](https://github.com/user-attachments/assets/f76a7ecc-baf8-446
+![Main Whiteboard View](https://github.com/user-attachments/assets/56d3f707-7ea2-4c7c-b304-f084cd2ce8f7)
+
+**Professor View:**
+![Professor View](https://github.com/user-attachments/assets/16eb25b9-33f5-4fef-8a12-81db38de2a97)
+
+**Student View:**
+![Student View](https://github.com/user-attachments/assets/f76a7ecc-baf8-4461-8991-aa44442f3a68)
 
 ## Usage
 
