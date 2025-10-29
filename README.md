@@ -60,9 +60,16 @@ node server.js
 
 ## Screenshots
 
-(Add screenshots of the whiteboard interface, role selection modal, professor/student views, and mobile install banner for visual impact.)
+![Main Whiteboard View](https://github.com/user-attachments/assets/56d3f707-7ea2-4c7c-b304-f084cd2ce8f7)
+
+**Professor View:**
+![Professor View](https://github.com/user-attachments/assets/16eb25b9-33f5-4fef-8a12-81db38de2a97)
+
+**Student View:**
+![Student View](https://github.com/user-attachments/assets/f76a7ecc-baf8-4461-8991-aa44442f3a68)
 
 ***
+
 
 ## Usage
 
